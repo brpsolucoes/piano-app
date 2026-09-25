@@ -1082,6 +1082,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        if (resultsModal) {
+            resultsModal.addEventListener('click', (e) => {
+                if (e.target === resultsModal) {
+                    resultsModal.classList.add('hidden');
+                }
+            });
+        }
+
         // Pré-carregamento dos samples acústicos reais em segundo plano
         audio.onSampleLoadProgress = (loaded, total) => {
             const pct = Math.round((loaded / total) * 100);

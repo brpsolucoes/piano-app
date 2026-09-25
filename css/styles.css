@@ -29,6 +29,11 @@
     -webkit-user-select: none;
 }
 
+/* Utilitários globais */
+.hidden {
+    display: none !important;
+}
+
 body {
     background-color: var(--bg-dark);
     background-image: 
@@ -1105,6 +1110,10 @@ input[type="range"]::-webkit-slider-thumb {
     justify-content: center;
     padding: 20px;
     animation: fadeIn 0.25s ease;
+}
+
+.game-modal-overlay.hidden {
+    display: none !important;
 }
 
 .game-modal-box {
