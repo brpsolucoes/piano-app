@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Piano App">
+    <meta name="theme-color" content="#121316">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+    <link rel="icon" type="image/png" href="./icon-192.png">
+    <title>Piano Realista & Estúdio de Aprendizado</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Banner Orientação Tablet -->
+    <div id="orientation-banner" class="orientation-banner">
+        <span>🔄 <strong>Dica para Tablet:</strong> Gire para o modo horizontal (Paisagem) para ter o tamanho ideal de teclas!</span>
+        <button id="btn-close-orientation" class="btn-close-banner" aria-label="Fechar">✕</button>
+    </div>
+
+    <!-- Cabeçalho com Ações Rápidas -->
+    <header class="app-header">
+        <div class="header-top-row">
+            <span class="brand-badge">Instrumento Acústico Digital</span>
+            <button id="btn-fullscreen" class="btn-secondary btn-fullscreen-toggle" title="Alternar Tela Cheia">
+                <span id="fullscreen-icon">⛶</span> <span id="fullscreen-text">Tela Cheia</span>
+            </button>
+        </div>
+        <h1 class="app-title">Concert Grand Piano</h1>
+        <p class="app-subtitle">Aprenda a tocar piano do zero • Som realista de cauda • Otimizado para Tablet e Desktop</p>
+    </header>
+
+    <!-- Barra de Ferramentas Didáticas -->
+    <section class="toolbar-container">
+        
+        <!-- Controles Gerais & Teclas -->
+        <div class="tool-card">
+            <div class="tool-card-title">
+                <span>🎹</span> Exibição & Controles
+            </div>
+            <div class="tool-row" style="margin-bottom: 10px;">
+                <label for="label-mode" style="font-size: 0.8rem; color: #aaa;">Rótulos:</label>
+                <select id="label-mode">
+                    <option value="both">Notas + Teclado PC</option>
+                    <option value="notes">Apenas Notas (C, D, E...)</option>
+                    <option value="pc">Apenas Teclas do PC</option>
+                    <option value="none">Ocultar (Piano Real)</option>
+                </select>
+                <button id="btn-sustain" class="btn-primary btn-sustain" title="Atalho: Barra de Espaço">
+                    Pedal Sustain (Espaço)
+                </button>
+            </div>
+            <div class="tool-row" style="margin-bottom: 10px;">
+                <label for="keyboard-range-select" style="font-size: 0.8rem; color: #aaa;">Oitavas:</label>
+                <select id="keyboard-range-select">
+                    <option value="3" selected>3 Oitavas (Padrão: C3 - C6)</option>
+                    <option value="2">2 Oitavas (Teclas Grandes - Recomendado Tablet)</option>
+                    <option value="1">1 Oitava (Teclas Gigantes)</option>
+                </select>
+                <div id="octave-shift-container" class="octave-shift-container hidden">
+                    <button id="btn-octave-down" class="btn-secondary btn-mini" title="Oitava anterior">◀</button>
+                    <span id="current-range-badge" class="current-range-badge">C4 - C6</span>
+                    <button id="btn-octave-up" class="btn-secondary btn-mini" title="Próxima oitava">▶</button>
+                </div>
+            </div>
+            <div class="tool-row">
+                <span style="font-size: 0.8rem; color: #aaa;">Volume:</span>
+                <div class="slider-group">
+                    <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.8">
+                </div>
+            </div>
+        </div>
+
+        <!-- Dicionário de Acordes e Escalas -->
+        <div class="tool-card">
+            <div class="tool-card-title">
+                <span>🎼</span> Dicionário de Acordes
+            </div>
+            <div class="tool-row" style="margin-bottom: 8px;">
+                <select id="chord-root-select">
+                    <option value="C">Dó (C)</option>
+                    <option value="C#">Dó# (C#)</option>
+                    <option value="D">Ré (D)</option>
+                    <option value="Eb">Mi♭ (Eb)</option>
+                    <option value="E">Mi (E)</option>
+                    <option value="F">Fá (F)</option>
+                    <option value="F#">Fá# (F#)</option>
+                    <option value="G">Sol (G)</option>
+                    <option value="Ab">Lá♭ (Ab)</option>
+                    <option value="A">Lá (A)</option>
+                    <option value="Bb">Si♭ (Bb)</option>
+                    <option value="B">Si (B)</option>
+                </select>
+                <select id="chord-type-select">
+                    <option value="major">Maior (M)</option>
+                    <option value="minor">Menor (m)</option>
+                    <option value="7">Sétima (7)</option>
+                    <option value="maj7">7ª Maior (7M)</option>
+                    <option value="m7">Menor com 7ª (m7)</option>
+                    <option value="sus4">Suspenso 4 (sus4)</option>
+                    <option value="dim">Diminuto (dim)</option>
+                </select>
+                <button id="btn-play-chord" class="btn-primary" title="Tocar acorde arpejado">
+                    Ouvir
+                </button>
+                <button id="btn-clear-highlight" class="btn-secondary" title="Limpar marcações">
+                    Limpar
+                </button>
+            </div>
+            <div class="tool-row">
+                <select id="scale-root-select">
+                    <option value="C">Escala em Dó (C)</option>
+                    <option value="D">Escala em Ré (D)</option>
+                    <option value="E">Escala em Mi (E)</option>
+                    <option value="F">Escala em Fá (F)</option>
+                    <option value="G">Escala em Sol (G)</option>
+                    <option value="A">Escala em Lá (A)</option>
+                    <option value="B">Escala em Si (B)</option>
+                </select>
+                <select id="scale-type-select">
+                    <option value="major">Escala Maior</option>
+                    <option value="minor">Escala Menor</option>
+                    <option value="penta_major">Pentatônica Maior</option>
+                    <option value="penta_minor">Pentatônica Blues</option>
+                </select>
+            </div>
+            <div id="chord-theory-desc" class="chord-theory-desc"></div>
+        </div>
+
+        <!-- Músicas Didáticas & Prática Guiada -->
+        <div class="tool-card">
+            <div class="tool-card-title">
+                <span>⭐</span> Prática de Músicas
+            </div>
+            <div class="tool-row" style="margin-bottom: 8px;">
+                <select id="song-select" style="width: 100%;">
+                    <!-- Preenchido via songs.js -->
+                </select>
+            </div>
+            <div class="tool-row">
+                <button id="btn-play-demo" class="btn-primary">▶ Ouvir Demonstração</button>
+                <button id="btn-reset-song" class="btn-secondary">Reiniciar</button>
+            </div>
+        </div>
+
+        <!-- Metrônomo Integrado -->
+        <div class="tool-card">
+            <div class="tool-card-title">
+                <div id="metronome-led" class="metronome-led"></div>
+                <span>⏱</span> Metrônomo
+            </div>
+            <div class="tool-row" style="margin-bottom: 10px;">
+                <div class="slider-group">
+                    <input type="range" id="bpm-slider" min="40" max="220" value="100">
+                    <span id="bpm-display" style="font-weight: 700; min-width: 65px; text-align: right;">100 BPM</span>
+                </div>
+            </div>
+            <div class="tool-row">
+                <button id="btn-metronome-toggle" class="btn-secondary" style="width: 100%;">▶ Iniciar Metrônomo</button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Painel de Prática de Música (Exibido ao selecionar uma canção) -->
+    <section id="song-practice-panel" class="song-practice-panel hidden">
+        <div class="song-header-row">
+            <div>
+                <div id="song-title-display" class="song-title-display">Ode à Alegria</div>
+                <div id="song-composer-display" class="song-composer-display">Beethoven • Iniciante</div>
+            </div>
+            <div id="song-counter" style="font-weight: 700; color: var(--gold);">1 de 30</div>
+        </div>
+        <div class="song-target-box">
+            <div>
+                <span style="font-size: 0.8rem; color: #888; text-transform: uppercase;">Próxima Nota a Tocar:</span>
+                <div id="song-target-note" class="song-target-note">E4 (Mi) [E]</div>
+            </div>
+            <div id="song-lyric" class="song-lyric">"O-de à A-le-gria"</div>
+        </div>
+        <div class="song-progress-bar">
+            <div id="song-progress-fill" class="song-progress-fill"></div>
+        </div>
+        <div class="song-footer-row">
+            <span>Toque a nota indicada destacada no piano para avançar na música!</span>
+        </div>
+    </section>
+
+    <!-- Display HUD de Detecção de Acordes & Status de Áudio -->
+    <div class="chord-hud">
+        <div class="chord-hud-left">
+            <span class="hud-label">Detector de Acordes em Tempo Real</span>
+            <div id="chord-detected-name" class="chord-detected-name">Nenhum acorde tocado</div>
+            <div id="chord-detected-desc" class="chord-detected-desc">Toque as teclas para ouvir o som e identificar acordes</div>
+        </div>
+        <div class="status-badges">
+            <div id="sample-status"><span class="status-dot loading"></span> Conectando motor de áudio...</div>
+            <div id="midi-status">MIDI: Suporte Ativo</div>
+        </div>
+    </div>
+
+    <!-- O MÓVEL DO PIANO ACÚSTICO -->
+    <main class="piano-furniture">
+        <!-- Tampo com Marca Dourada -->
+        <div class="fallboard-brand">
+            <div class="brand-text">ANTIGRAVITY • CONCERT GRAND</div>
+        </div>
+
+        <!-- Feltro Vermelho Protetor Clássico -->
+        <div class="red-felt-strip"></div>
+
+        <!-- Teclado do Piano com rolagem responsiva -->
+        <div class="piano-scroll-wrapper">
+            <div id="piano-keys" class="piano-keys-wrapper">
+                <!-- Teclas geradas dinamicamente pelo app.js -->
+            </div>
+        </div>
+
+        <!-- Barra de Pedal de Sustentação para Tablet / Touch -->
+        <div class="tablet-pedal-container">
+            <button id="btn-tablet-pedal" class="btn-tablet-pedal" type="button">
+                <span class="pedal-brass-strip"></span>
+                <span class="pedal-title">🦶 Pedal de Sustentação (Touch)</span>
+                <span id="pedal-mode-hint" class="pedal-hint">Toque e segure para ressoar as notas</span>
+            </button>
+            <div class="pedal-options">
+                <label class="pedal-toggle-label">
+                    <input type="checkbox" id="pedal-hold-checkbox" checked>
+                    <span>Segurar com o dedo</span>
+                </label>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé de Instruções & Atalhos de Teclado -->
+    <footer class="instructions-footer">
+        <h4>💡 Guia Rápido para Iniciantes:</h4>
+        <p>Você pode tocar clicando com o <strong>mouse</strong>, usando o <strong>touchscreen</strong> do celular/tablet, conectando um <strong>teclado MIDI USB</strong> ou digitando no seu <strong>teclado do computador</strong>:</p>
+        <div class="shortcuts-grid">
+            <div class="shortcut-item">
+                <strong>Oitava Central (C4 / Dó Central):</strong><br>
+                Brancas: <kbd>Q</kbd> <kbd>W</kbd> <kbd>E</kbd> <kbd>R</kbd> <kbd>T</kbd> <kbd>Y</kbd> <kbd>U</kbd><br>
+                Pretas: <kbd>2</kbd> <kbd>3</kbd> <kbd>5</kbd> <kbd>6</kbd> <kbd>7</kbd>
+            </div>
+            <div class="shortcut-item">
+                <strong>Oitava Grave (C3):</strong><br>
+                Brancas: <kbd>Z</kbd> <kbd>X</kbd> <kbd>C</kbd> <kbd>V</kbd> <kbd>B</kbd> <kbd>N</kbd> <kbd>M</kbd><br>
+                Pretas: <kbd>S</kbd> <kbd>D</kbd> <kbd>G</kbd> <kbd>H</kbd> <kbd>J</kbd>
+            </div>
+            <div class="shortcut-item">
+                <strong>Pedal de Sustentação:</strong><br>
+                Segure a <kbd>Barra de Espaço</kbd> enquanto toca para fazer o som das notas ecoar naturalmente.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts da Aplicação -->
+    <script src="js/audio.js"></script>
+    <script src="js/scales-chords.js"></script>
+    <script src="js/songs.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

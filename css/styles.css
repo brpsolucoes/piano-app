@@ -1,0 +1,935 @@
+/* ==========================================================================
+   Piano App - Estilos Realistas & Didáticos
+   Design: Skeuomorfismo moderno de Piano de Cauda com interface didática
+   ========================================================================== */
+
+:root {
+    --bg-dark: #121316;
+    --panel-bg: #1c1d22;
+    --panel-border: #2d3038;
+    --gold: #d4af37;
+    --gold-light: #f3e5ab;
+    --gold-hover: #b89628;
+    --felt-red: #9e1b24;
+    --key-white-top: #ffffff;
+    --key-white-bottom: #f2efe9;
+    --key-black-top: #3a3a3a;
+    --key-black-bottom: #111111;
+    --text-primary: #eaeef2;
+    --text-muted: #8b929e;
+    --accent-cyan: #00d2ff;
+    --accent-success: #10b981;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    background-color: var(--bg-dark);
+    background-image: 
+        radial-gradient(ellipse at top, #262a33 0%, #101114 70%),
+        radial-gradient(circle at bottom, #18191d 0%, #0d0e10 100%);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 15px 40px;
+}
+
+/* Header & Logo */
+.app-header {
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.brand-badge {
+    display: inline-block;
+    color: var(--gold);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.app-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.app-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* Painel de Ferramentas / Barra Superior */
+.toolbar-container {
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.tool-card {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.tool-card-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tool-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Form Controls */
+select, button, input[type="range"] {
+    font-family: inherit;
+}
+
+select {
+    background: #2a2d36;
+    border: 1px solid #3f4450;
+    color: #fff;
+    padding: 7px 10px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+select:focus {
+    border-color: var(--gold);
+}
+
+.btn-primary, .btn-secondary, .btn-action {
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-primary {
+    background: linear-gradient(180deg, var(--gold) 0%, var(--gold-hover) 100%);
+    color: #121212;
+    box-shadow: 0 2px 6px rgba(212, 175, 55, 0.3);
+}
+
+.btn-primary:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: #2c303a;
+    border: 1px solid #404554;
+    color: #d1d5db;
+}
+
+.btn-secondary:hover {
+    background: #373c49;
+    color: #fff;
+}
+
+.btn-sustain {
+    background: #2a2d36;
+    border: 1px solid #454b5a;
+    color: #e5e7eb;
+    min-width: 140px;
+    padding: 8px 12px;
+}
+
+.btn-sustain.active {
+    background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+    color: #fff;
+    border-color: #10b981;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+}
+
+/* Slider */
+.slider-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #333844;
+    border-radius: 3px;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--gold);
+    cursor: pointer;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+}
+
+/* Metrônomo */
+.metronome-led {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #444;
+    transition: background 0.05s;
+}
+
+.metronome-led.flash {
+    background: #ff3344;
+    box-shadow: 0 0 10px #ff3344;
+}
+
+/* ==========================================================================
+   Display de Acordes Detectados em Tempo Real
+   ========================================================================== */
+.chord-hud {
+    width: 100%;
+    max-width: 1200px;
+    background: linear-gradient(180deg, #1a1b20 0%, #141518 100%);
+    border: 1px solid #333742;
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.chord-hud-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.hud-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+}
+
+.chord-detected-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 2px;
+}
+
+.chord-detected-name.detected {
+    color: var(--gold-light);
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+}
+
+.chord-detected-desc {
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+.status-badges {
+    display: flex;
+    gap: 12px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.status-dot.ready { background: var(--accent-success); box-shadow: 0 0 6px var(--accent-success); }
+.status-dot.loading { background: #f59e0b; animation: pulse 1s infinite alternate; }
+
+@keyframes pulse {
+    0% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
+
+/* ==========================================================================
+   Painel de Prática de Músicas
+   ========================================================================== */
+.song-practice-panel {
+    width: 100%;
+    max-width: 1200px;
+    background: #1f222a;
+    border: 1px solid #3e4454;
+    border-radius: 8px;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.song-practice-panel.hidden {
+    display: none;
+}
+
+.song-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.song-title-display {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.song-composer-display {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.song-target-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #15171d;
+    border: 1px solid #2d313c;
+    border-radius: 6px;
+    padding: 10px 16px;
+    margin-bottom: 12px;
+}
+
+.song-target-note {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--accent-cyan);
+    letter-spacing: 0.5px;
+}
+
+.song-lyric {
+    font-size: 1rem;
+    font-style: italic;
+    color: #e5e7eb;
+}
+
+.song-progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #2b2e38;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.song-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--accent-cyan) 100%);
+    width: 0%;
+    transition: width 0.25s ease;
+}
+
+.song-footer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   ESTRUTURA DO PIANO ACÚSTICO (MÓVEL & TECLAS)
+   ========================================================================== */
+.piano-furniture {
+    width: 100%;
+    max-width: 1200px;
+    background: #0f1013;
+    border-radius: 12px;
+    padding: 24px 20px 28px;
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.85),
+        0 0 0 1px #22252e,
+        inset 0 2px 4px rgba(255, 255, 255, 0.08);
+    position: relative;
+}
+
+/* Placa Dourada da Marca */
+.fallboard-brand {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.brand-text {
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 6px;
+    color: var(--gold);
+    text-shadow: 
+        0 1px 2px rgba(0, 0, 0, 0.9),
+        0 0 12px rgba(212, 175, 55, 0.2);
+    text-transform: uppercase;
+}
+
+/* Feltro Vermelho Clássico */
+.red-felt-strip {
+    width: 100%;
+    height: 12px;
+    background: linear-gradient(180deg, #701016 0%, var(--felt-red) 60%, #b8222d 100%);
+    border-radius: 3px 3px 0 0;
+    box-shadow: 
+        inset 0 1px 2px rgba(0,0,0,0.5),
+        0 2px 4px rgba(0,0,0,0.6);
+    position: relative;
+    z-index: 5;
+}
+
+/* Container de Teclas com rolagem horizontal em telas pequenas */
+.piano-scroll-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #3b3f4d #1c1d22;
+}
+
+.piano-scroll-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+.piano-scroll-wrapper::-webkit-scrollbar-track {
+    background: #1c1d22;
+    border-radius: 4px;
+}
+.piano-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: #3b3f4d;
+    border-radius: 4px;
+}
+
+.piano-keys-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    min-width: 960px; /* Garante tamanho de toque e proporção real */
+    height: 270px;
+    margin: 0 auto;
+    background: #000;
+}
+
+/* TECLA BRANCA */
+.piano-key.white-key {
+    flex: 1 0 42px;
+    max-width: 48px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--key-white-top) 0%, var(--key-white-bottom) 90%, #dcd6c8 100%);
+    border: 1px solid #1a1a1a;
+    border-top: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 
+        inset 0 -6px 8px rgba(0, 0, 0, 0.12),
+        inset 0 2px 2px rgba(255, 255, 255, 0.8),
+        inset -1px 0 2px rgba(0, 0, 0, 0.1),
+        0 4px 6px rgba(0, 0, 0, 0.4);
+    position: relative;
+    cursor: pointer;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 14px;
+    transition: transform 0.04s ease, background 0.04s ease, box-shadow 0.04s ease;
+}
+
+.piano-key.white-key.active {
+    background: linear-gradient(180deg, #ede7db 0%, #dfd6c4 90%, #cac0aa 100%);
+    transform: translateY(3px);
+    box-shadow: 
+        inset 0 -2px 4px rgba(0, 0, 0, 0.25),
+        inset 0 2px 4px rgba(0, 0, 0, 0.2),
+        0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* TECLA PRETA */
+.piano-key.black-key {
+    width: 28px;
+    height: 165px;
+    margin-left: -14px;
+    margin-right: -14px;
+    background: linear-gradient(180deg, #444 0%, var(--key-black-top) 10%, var(--key-black-bottom) 90%, #000 100%);
+    border-radius: 0 0 3px 3px;
+    box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        inset -1px 0 2px rgba(0, 0, 0, 0.6),
+        3px 4px 8px rgba(0, 0, 0, 0.6);
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 12px;
+    transition: transform 0.04s ease, box-shadow 0.04s ease;
+}
+
+.piano-key.black-key.active {
+    background: linear-gradient(180deg, #222 0%, #151515 90%, #000 100%);
+    transform: translateY(2px);
+    box-shadow: 
+        inset 0 2px 3px rgba(0, 0, 0, 0.8),
+        1px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Marcação especial para Dó Central (C4) */
+.piano-key.middle-c::before {
+    content: '';
+    position: absolute;
+    bottom: 46px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 4px rgba(212, 175, 55, 0.8);
+}
+
+/* Rótulos Didáticos nas Teclas */
+.key-label-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+    line-height: 1.1;
+}
+
+.white-key .note-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.white-key .note-pt {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #4b5563;
+}
+
+.white-key .pc-key {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #9333ea;
+    margin-top: 3px;
+}
+
+.black-key .note-name {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.black-key .note-pt {
+    font-size: 0.6rem;
+    color: #9ca3af;
+}
+
+.black-key .pc-key {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #38bdf8;
+    margin-top: 2px;
+}
+
+/* Modos de Visibilidade dos Rótulos */
+.label-mode-notes .pc-key { display: none !important; }
+.label-mode-pc .note-name, .label-mode-pc .note-pt { display: none !important; }
+.label-mode-none .key-label-wrapper { display: none !important; }
+
+/* ==========================================================================
+   EFEITOS DE DESTAQUE DIDÁTICO (Acordes e Músicas)
+   ========================================================================= */
+
+/* Destaque de Acorde */
+.piano-key.highlighted-chord {
+    box-shadow: 0 0 14px rgba(0, 210, 255, 0.8), inset 0 0 10px rgba(0, 210, 255, 0.4) !important;
+    border: 2px solid var(--accent-cyan) !important;
+}
+
+/* Badge do intervalo musical (Fundamental, 3ª, 5ª) */
+.interval-badge {
+    position: absolute;
+    top: 15px;
+    background: rgba(0, 210, 255, 0.95);
+    color: #0b1320;
+    font-size: 0.58rem;
+    font-weight: 800;
+    padding: 2px 4px;
+    border-radius: 3px;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Destaque de Escala */
+.piano-key.highlighted-scale {
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.7), inset 0 0 8px rgba(16, 185, 129, 0.3) !important;
+    border: 1px solid var(--accent-success) !important;
+}
+
+/* Alvo da Prática de Músicas */
+.piano-key.target-song-key {
+    box-shadow: 0 0 18px var(--gold), inset 0 0 12px rgba(212, 175, 55, 0.6) !important;
+    border: 2px solid var(--gold) !important;
+    animation: bounceTarget 0.8s infinite alternate ease-in-out;
+}
+
+@keyframes bounceTarget {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-4px); }
+}
+
+/* Teoria / Explicação de Acorde */
+.chord-theory-desc {
+    margin-top: 10px;
+    font-size: 0.82rem;
+    color: #c5cbd5;
+    line-height: 1.4;
+    min-height: 22px;
+}
+
+/* Dicas e Instruções ao Rodapé */
+.instructions-footer {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 25px;
+    background: #16181d;
+    border: 1px solid #282c37;
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.instructions-footer h4 {
+    color: var(--gold);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.shortcut-item kbd {
+    background: #282b35;
+    color: #fff;
+    border: 1px solid #444a5b;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.78rem;
+    box-shadow: 0 2px 0 #181920;
+}
+
+/* Header Top Row & Tela Cheia */
+.header-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 6px;
+}
+
+.btn-fullscreen-toggle {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: #252831;
+    border: 1px solid #3f4454;
+    color: var(--gold);
+}
+
+.btn-fullscreen-toggle:hover {
+    background: #333845;
+    color: #fff;
+}
+
+/* Banner de Orientação do Tablet */
+.orientation-banner {
+    display: none; /* Ativado via media query portrait */
+    width: 100%;
+    max-width: 1200px;
+    background: linear-gradient(90deg, #2b2210 0%, #3d2f13 100%);
+    border: 1px solid #d4af37;
+    color: var(--gold-light);
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin-bottom: 15px;
+    font-size: 0.85rem;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.3s ease;
+}
+
+.orientation-banner.closed {
+    display: none !important;
+}
+
+.btn-close-banner {
+    background: transparent;
+    border: none;
+    color: var(--gold-light);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 2px 6px;
+}
+
+@media (orientation: portrait) and (max-width: 1024px) {
+    .orientation-banner:not(.closed) {
+        display: flex;
+    }
+}
+
+/* Seletor de Oitavas & Transposição */
+.octave-shift-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #17181c;
+    padding: 3px 6px;
+    border-radius: 6px;
+    border: 1px solid #333742;
+}
+
+.octave-shift-container.hidden {
+    display: none !important;
+}
+
+.current-range-badge {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--gold);
+    min-width: 60px;
+    text-align: center;
+}
+
+.btn-mini {
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    line-height: 1;
+}
+
+/* ==========================================================================
+   Barra do Pedal de Sustentação para Tablet / Touch
+   ========================================================================== */
+.tablet-pedal-container {
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    background: #15161b;
+    border: 1px solid #282b36;
+    border-radius: 8px;
+    padding: 10px 16px;
+}
+
+.btn-tablet-pedal {
+    flex: 1;
+    min-width: 240px;
+    height: 52px;
+    background: linear-gradient(180deg, #2c2f38 0%, #1a1b20 100%);
+    border: 1px solid #4a5060;
+    border-radius: 8px;
+    color: #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    touch-action: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: transform 0.05s ease, background 0.1s ease, border-color 0.1s ease;
+}
+
+.pedal-brass-strip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #997321 0%, var(--gold) 50%, #997321 100%);
+}
+
+.pedal-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.pedal-hint {
+    font-size: 0.72rem;
+    color: #9ca3af;
+    margin-top: 1px;
+}
+
+.btn-tablet-pedal:active, .btn-tablet-pedal.active {
+    transform: translateY(2px);
+    background: linear-gradient(180deg, #10b981 0%, #065f46 100%);
+    border-color: #10b981;
+    color: #fff;
+    box-shadow: 0 0 16px rgba(16, 185, 129, 0.4), inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.btn-tablet-pedal.active .pedal-hint {
+    color: #d1fae5;
+}
+
+.pedal-options {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.pedal-toggle-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.pedal-toggle-label input {
+    cursor: pointer;
+    accent-color: var(--gold);
+}
+
+/* ==========================================================================
+   Modos de Largura das Teclas (2 Oitavas vs 3 Oitavas)
+   ========================================================================== */
+.piano-furniture {
+    touch-action: none;
+    -webkit-touch-callout: none;
+}
+
+.piano-keys-wrapper {
+    touch-action: none;
+}
+
+.piano-key {
+    touch-action: none;
+    -webkit-touch-callout: none;
+}
+
+/* Modo 2 Oitavas (Teclas Grandes para Tablet) */
+.octaves-2 .piano-keys-wrapper {
+    min-width: 820px;
+    height: 290px;
+}
+
+.octaves-2 .piano-key.white-key {
+    flex: 1 0 54px;
+    max-width: 62px;
+}
+
+.octaves-2 .piano-key.black-key {
+    width: 36px;
+    height: 180px;
+    margin-left: -18px;
+    margin-right: -18px;
+}
+
+/* Modo 1 Oitava (Teclas Gigantes) */
+.octaves-1 .piano-keys-wrapper {
+    min-width: 600px;
+    height: 310px;
+}
+
+.octaves-1 .piano-key.white-key {
+    flex: 1 0 80px;
+    max-width: 95px;
+}
+
+.octaves-1 .piano-key.black-key {
+    width: 52px;
+    height: 195px;
+    margin-left: -26px;
+    margin-right: -26px;
+}
+
+/* Estilos de Tela Cheia Nativa */
+:fullscreen body, :-webkit-full-screen body {
+    padding: 10px 10px 20px;
+    justify-content: center;
+}
+
+:fullscreen .app-subtitle, :-webkit-full-screen .app-subtitle,
+:fullscreen .instructions-footer, :-webkit-full-screen .instructions-footer {
+    display: none;
+}
+
+:fullscreen .piano-furniture, :-webkit-full-screen .piano-furniture {
+    max-width: 100vw;
+    border-radius: 0;
+}
+
+/* Responsividade geral */
+@media (max-width: 768px) {
+    .piano-keys-wrapper {
+        height: 230px;
+    }
+    .app-title {
+        font-size: 1.4rem;
+    }
+}
+
