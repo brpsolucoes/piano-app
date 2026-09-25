@@ -32,10 +32,68 @@
         </div>
         <h1 class="app-title">Concert Grand Piano</h1>
         <p class="app-subtitle">Aprenda a tocar piano do zero • Som realista de cauda • Otimizado para Tablet e Desktop</p>
+
+        <!-- Seletor de Modo Principal: Sandbox vs Jogo de Ritmo -->
+        <div class="mode-navigation-bar">
+            <button id="btn-mode-sandbox" class="btn-mode-tab active">
+                <span class="mode-icon">🎹</span> Modo Livre (Sandbox)
+            </button>
+            <button id="btn-mode-game" class="btn-mode-tab">
+                <span class="mode-icon">🎮</span> Modo Jogo de Ritmo (Synthesia)
+            </button>
+        </div>
     </header>
 
-    <!-- Barra de Ferramentas Didáticas -->
-    <section class="toolbar-container">
+    <!-- Painel HUD do Modo Jogo de Ritmo (Oculto no Sandbox) -->
+    <section id="game-hud-panel" class="game-hud-panel hidden">
+        <div class="game-controls-row">
+            <div class="game-control-group">
+                <label for="game-song-select">Canção:</label>
+                <select id="game-song-select">
+                    <!-- Preenchido via songs.js -->
+                </select>
+            </div>
+            <div class="game-control-group">
+                <label for="game-speed-select">Velocidade:</label>
+                <select id="game-speed-select">
+                    <option value="0.75">Lenta (0.75x)</option>
+                    <option value="1.0" selected>Normal (1.0x)</option>
+                    <option value="1.25">Rápida (1.25x)</option>
+                    <option value="1.5">Expert (1.5x)</option>
+                </select>
+            </div>
+            <div class="game-btn-group">
+                <button id="btn-game-start" class="btn-primary btn-game-play">▶ Iniciar Partida</button>
+                <button id="btn-game-pause" class="btn-secondary hidden">⏸ Pausar</button>
+                <button id="btn-game-stop" class="btn-secondary hidden">⏹ Parar</button>
+            </div>
+        </div>
+
+        <!-- Placar e Combos em Tempo Real -->
+        <div class="game-scoreboard">
+            <div class="score-card">
+                <span class="score-label">Pontos</span>
+                <span id="game-score-display" class="score-val">0</span>
+            </div>
+            <div class="score-card">
+                <span class="score-label">Combo</span>
+                <span id="game-combo-display" class="score-val combo-val">0x</span>
+            </div>
+            <div class="score-card">
+                <span class="score-label">Precisão</span>
+                <span id="game-accuracy-display" class="score-val">100%</span>
+            </div>
+            <div class="score-card score-progress-card">
+                <span class="score-label">Progresso da Música</span>
+                <div class="game-track-progress">
+                    <div id="game-progress-fill" class="game-track-fill"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Barra de Ferramentas Didáticas (Modo Sandbox) -->
+    <section id="sandbox-toolbar" class="toolbar-container">
         
         <!-- Controles Gerais & Teclas -->
         <div class="tool-card">
@@ -210,11 +268,16 @@
             <div class="brand-text">ANTIGRAVITY • CONCERT GRAND</div>
         </div>
 
-        <!-- Feltro Vermelho Protetor Clássico -->
-        <div class="red-felt-strip"></div>
-
-        <!-- Teclado do Piano com rolagem responsiva -->
+        <!-- Teclado do Piano e Pista de Queda com rolagem sincronizada -->
         <div class="piano-scroll-wrapper">
+            <!-- Pista de Notas Caindo (Modo Jogo de Ritmo Synthesia) -->
+            <div id="game-canvas-wrapper" class="game-canvas-wrapper hidden">
+                <canvas id="game-canvas"></canvas>
+            </div>
+
+            <!-- Feltro Vermelho Protetor Clássico -->
+            <div class="red-felt-strip"></div>
+
             <div id="piano-keys" class="piano-keys-wrapper">
                 <!-- Teclas geradas dinamicamente pelo app.js -->
             </div>
@@ -235,6 +298,36 @@
             </div>
         </div>
     </main>
+
+    <!-- Modal de Resultados do Jogo de Ritmo -->
+    <div id="game-results-modal" class="game-modal-overlay hidden">
+        <div class="game-modal-box">
+            <h2 class="modal-title">🎵 Fim de Música!</h2>
+            <div id="modal-stars" class="modal-stars">⭐⭐⭐</div>
+            <div class="modal-stats-grid">
+                <div class="modal-stat">
+                    <span class="stat-label">Pontuação</span>
+                    <span id="modal-score" class="stat-val">0</span>
+                </div>
+                <div class="modal-stat">
+                    <span class="stat-label">Maior Combo</span>
+                    <span id="modal-max-combo" class="stat-val">0x</span>
+                </div>
+                <div class="modal-stat">
+                    <span class="stat-label">Taxa de Acerto</span>
+                    <span id="modal-hit-rate" class="stat-val">0%</span>
+                </div>
+                <div class="modal-stat">
+                    <span class="stat-label">Perfeitos / Bons</span>
+                    <span id="modal-ratings" class="stat-val">0 / 0</span>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="btn-modal-replay" class="btn-primary">🔄 Jogar Novamente</button>
+                <button id="btn-modal-close" class="btn-secondary">Voltar ao Piano</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Rodapé de Instruções & Atalhos de Teclado -->
     <footer class="instructions-footer">
@@ -262,6 +355,7 @@
     <script src="js/audio.js"></script>
     <script src="js/scales-chords.js"></script>
     <script src="js/songs.js"></script>
+    <script src="js/rhythm-game.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

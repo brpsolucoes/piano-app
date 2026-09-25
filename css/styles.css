@@ -933,3 +933,237 @@ input[type="range"]::-webkit-slider-thumb {
     }
 }
 
+/* ==========================================================================
+   MODO JOGO DE RITMO (SYNTHESIA / FALLING NOTES)
+   ========================================================================== */
+
+/* Barra de Alternância de Modos */
+.mode-navigation-bar {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 14px;
+    margin-bottom: 8px;
+}
+
+.btn-mode-tab {
+    background: #1b1d24;
+    border: 1px solid #363a48;
+    color: #9ca3af;
+    padding: 8px 18px;
+    border-radius: 24px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-mode-tab:hover {
+    background: #252832;
+    color: #fff;
+    border-color: #4b5266;
+}
+
+.btn-mode-tab.active {
+    background: linear-gradient(135deg, #2a2415 0%, #3d3113 100%);
+    border-color: var(--gold);
+    color: var(--gold-light);
+    box-shadow: 0 0 14px rgba(212, 175, 55, 0.35);
+}
+
+/* Painel HUD do Jogo */
+.game-hud-panel {
+    width: 100%;
+    max-width: 1200px;
+    background: linear-gradient(180deg, #1b1d24 0%, #131418 100%);
+    border: 1px solid #383e4e;
+    border-radius: 12px;
+    padding: 16px 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    animation: fadeIn 0.3s ease;
+}
+
+.game-controls-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #282c37;
+}
+
+.game-control-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #d1d5db;
+}
+
+.game-btn-group {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-game-play {
+    font-size: 0.95rem;
+    padding: 9px 20px;
+    border-radius: 8px;
+    letter-spacing: 0.5px;
+}
+
+/* Placar do Jogo */
+.game-scoreboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+}
+
+.score-card {
+    background: #14161c;
+    border: 1px solid #2b2f3b;
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.score-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+}
+
+.score-val {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #fff;
+    margin-top: 2px;
+}
+
+.combo-val {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
+}
+
+.score-progress-card {
+    grid-column: span 2;
+}
+
+.game-track-progress {
+    width: 100%;
+    height: 10px;
+    background: #252833;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.game-track-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--accent-cyan) 100%);
+    transition: width 0.15s ease;
+}
+
+/* ==========================================================================
+   Pista de Queda de Notas (Canvas)
+   ========================================================================== */
+.game-canvas-wrapper {
+    width: 100%;
+    height: 300px;
+    background: #0d0e12;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 2px solid #222;
+}
+
+.game-canvas-wrapper canvas {
+    display: block;
+    height: 100%;
+}
+
+/* Modal de Resultados / Vitória */
+.game-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.25s ease;
+}
+
+.game-modal-box {
+    background: linear-gradient(180deg, #20222a 0%, #14151a 100%);
+    border: 2px solid var(--gold);
+    border-radius: 14px;
+    padding: 28px 32px;
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+}
+
+.modal-title {
+    font-size: 1.6rem;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+}
+
+.modal-stars {
+    font-size: 2.2rem;
+    letter-spacing: 6px;
+    margin-bottom: 20px;
+}
+
+.modal-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.modal-stat {
+    background: #171920;
+    border: 1px solid #2f3442;
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.stat-val {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 3px;
+    display: block;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+

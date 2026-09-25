@@ -54,6 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const chordDetectorDesc = document.getElementById('chord-detected-desc');
 
     // Estado da Aplicação
+    const rhythmGame = new PianoRhythmGame();
+    let currentAppMode = 'sandbox'; // 'sandbox' ou 'game'
     let currentLabelMode = 'both'; // 'both', 'notes', 'pc', 'none'
     let isMouseDown = false;
     let activeHeldNotes = new Set();
@@ -148,6 +150,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateLabelsVisibility();
 
+        // Se o motor do jogo estiver ativo, redimensiona o canvas para acompanhar as teclas
+        if (rhythmGame && rhythmGame.canvas) {
+            rhythmGame.resizeCanvas();
+        }
+
         // Se estiver praticando música, restaura o destaque da nota alvo
         if (currentSong && typeof updateSongPracticeUI === 'function') {
             updateSongPracticeUI();
@@ -190,8 +197,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateChordDetection();
 
-        // Se estiver no modo de prática guiada de música
-        if (isUserAction && currentSong && !isPlayingDemo) {
+        // Se estiver no Modo Jogo de Ritmo (Synthesia)
+        if (isUserAction && currentAppMode === 'game' && rhythmGame && rhythmGame.isPlaying) {
+            rhythmGame.handleNoteDown(note);
+        }
+
+        // Se estiver no modo de prática guiada de música (Sandbox)
+        if (isUserAction && currentAppMode === 'sandbox' && currentSong && !isPlayingDemo) {
             checkSongPracticeStep(note);
         }
     }
@@ -206,6 +218,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         updateChordDetection();
+
+        // Se estiver no Modo Jogo de Ritmo (Synthesia)
+        if (currentAppMode === 'game' && rhythmGame && rhythmGame.isPlaying) {
+            rhythmGame.handleNoteUp(note);
+        }
     }
 
     function updateChordDetection() {
@@ -916,6 +933,153 @@ document.addEventListener('DOMContentLoaded', () => {
         const furniture = document.querySelector('.piano-furniture');
         if (furniture) {
             furniture.addEventListener('contextmenu', (e) => e.preventDefault());
+        }
+
+        // ==========================================
+        // MOTOR DO MODO JOGO DE RITMO (SYNTHESIA)
+        // ==========================================
+        const gameCanvas = document.getElementById('game-canvas');
+        if (gameCanvas) {
+            rhythmGame.init(gameCanvas, audio, pianoContainer);
+        }
+
+        const btnModeSandbox = document.getElementById('btn-mode-sandbox');
+        const btnModeGame = document.getElementById('btn-mode-game');
+        const sandboxToolbar = document.getElementById('sandbox-toolbar');
+        const gameHudPanel = document.getElementById('game-hud-panel');
+        const gameCanvasWrapper = document.getElementById('game-canvas-wrapper');
+        const chordHud = document.querySelector('.chord-hud');
+        const songPracticePanel = document.getElementById('song-practice-panel');
+
+        function switchMode(newMode) {
+            currentAppMode = newMode;
+            if (newMode === 'sandbox') {
+                rhythmGame.stop();
+                btnModeSandbox.classList.add('active');
+                btnModeGame.classList.remove('active');
+                if (sandboxToolbar) sandboxToolbar.classList.remove('hidden');
+                if (chordHud) chordHud.classList.remove('hidden');
+                if (gameHudPanel) gameHudPanel.classList.add('hidden');
+                if (gameCanvasWrapper) gameCanvasWrapper.classList.add('hidden');
+            } else {
+                btnModeSandbox.classList.remove('active');
+                btnModeGame.classList.add('active');
+                if (sandboxToolbar) sandboxToolbar.classList.add('hidden');
+                if (chordHud) chordHud.classList.add('hidden');
+                if (songPracticePanel) songPracticePanel.classList.add('hidden');
+                if (gameHudPanel) gameHudPanel.classList.remove('hidden');
+                if (gameCanvasWrapper) gameCanvasWrapper.classList.remove('hidden');
+                rhythmGame.resizeCanvas();
+            }
+        }
+
+        if (btnModeSandbox) btnModeSandbox.addEventListener('click', () => switchMode('sandbox'));
+        if (btnModeGame) btnModeGame.addEventListener('click', () => switchMode('game'));
+
+        // Popula músicas do modo jogo
+        const gameSongSelect = document.getElementById('game-song-select');
+        const gameSpeedSelect = document.getElementById('game-speed-select');
+        const btnGameStart = document.getElementById('btn-game-start');
+        const btnGamePause = document.getElementById('btn-game-pause');
+        const btnGameStop = document.getElementById('btn-game-stop');
+
+        if (gameSongSelect) {
+            gameSongSelect.innerHTML = '';
+            SONGS_COLLECTION.forEach(song => {
+                const opt = document.createElement('option');
+                opt.value = song.id;
+                opt.textContent = `${song.title} (${song.difficulty})`;
+                gameSongSelect.appendChild(opt);
+            });
+        }
+
+        if (btnGameStart) {
+            btnGameStart.addEventListener('click', () => {
+                const songId = gameSongSelect.value;
+                const song = SONGS_COLLECTION.find(s => s.id === songId);
+                if (!song) return;
+
+                const speed = parseFloat(gameSpeedSelect.value) || 1.0;
+                rhythmGame.loadSong(song, speed);
+                rhythmGame.start();
+
+                btnGameStart.classList.add('hidden');
+                btnGamePause.classList.remove('hidden');
+                btnGameStop.classList.remove('hidden');
+                btnGamePause.textContent = '⏸ Pausar';
+            });
+        }
+
+        if (btnGamePause) {
+            btnGamePause.addEventListener('click', () => {
+                if (rhythmGame.isPaused) {
+                    rhythmGame.resume();
+                    btnGamePause.textContent = '⏸ Pausar';
+                } else {
+                    rhythmGame.pause();
+                    btnGamePause.textContent = '▶ Continuar';
+                }
+            });
+        }
+
+        if (btnGameStop) {
+            btnGameStop.addEventListener('click', () => {
+                rhythmGame.stop();
+                btnGameStart.classList.remove('hidden');
+                btnGamePause.classList.add('hidden');
+                btnGameStop.classList.add('hidden');
+            });
+        }
+
+        // Callbacks de Score do Jogo
+        const scoreDisplay = document.getElementById('game-score-display');
+        const comboDisplay = document.getElementById('game-combo-display');
+        const accuracyDisplay = document.getElementById('game-accuracy-display');
+        const progressFill = document.getElementById('game-progress-fill');
+
+        rhythmGame.onScoreUpdate = (data) => {
+            if (scoreDisplay) scoreDisplay.textContent = data.score.toLocaleString();
+            if (comboDisplay) comboDisplay.textContent = `${data.combo}x`;
+            if (accuracyDisplay) accuracyDisplay.textContent = `${data.accuracy}%`;
+            if (progressFill) progressFill.style.width = `${data.progress}%`;
+        };
+
+        // Modal de Vitória / Resultados
+        const resultsModal = document.getElementById('game-results-modal');
+        const modalStars = document.getElementById('modal-stars');
+        const modalScore = document.getElementById('modal-score');
+        const modalMaxCombo = document.getElementById('modal-max-combo');
+        const modalHitRate = document.getElementById('modal-hit-rate');
+        const modalRatings = document.getElementById('modal-ratings');
+        const btnModalReplay = document.getElementById('btn-modal-replay');
+        const btnModalClose = document.getElementById('btn-modal-close');
+
+        rhythmGame.onSongComplete = (data) => {
+            btnGameStart.classList.remove('hidden');
+            btnGamePause.classList.add('hidden');
+            btnGameStop.classList.add('hidden');
+
+            if (resultsModal) {
+                resultsModal.classList.remove('hidden');
+                if (modalStars) modalStars.textContent = '⭐'.repeat(data.stars);
+                if (modalScore) modalScore.textContent = data.score.toLocaleString();
+                if (modalMaxCombo) modalMaxCombo.textContent = `${data.maxCombo}x`;
+                if (modalHitRate) modalHitRate.textContent = `${data.hitRate}%`;
+                if (modalRatings) modalRatings.textContent = `${data.stats.perfect} / ${data.stats.good}`;
+            }
+        };
+
+        if (btnModalReplay) {
+            btnModalReplay.addEventListener('click', () => {
+                resultsModal.classList.add('hidden');
+                if (btnGameStart) btnGameStart.click();
+            });
+        }
+
+        if (btnModalClose) {
+            btnModalClose.addEventListener('click', () => {
+                resultsModal.classList.add('hidden');
+            });
         }
 
         // Pré-carregamento dos samples acústicos reais em segundo plano

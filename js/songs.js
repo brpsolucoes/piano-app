@@ -1,6 +1,6 @@
 /**
- * songs.js - Repertório Didático para Prática Guiada
- * Permite aprender músicas nota a nota ou ouvir demonstrações automáticas
+ * songs.js - Repertório Didático para Prática Guiada e Modo Jogo (Synthesia)
+ * Contém notas, durações, compassos e letras formatadas para o motor de jogo
  */
 
 const SONGS_COLLECTION = [
@@ -9,7 +9,7 @@ const SONGS_COLLECTION = [
         title: 'Ode à Alegria',
         composer: 'L. v. Beethoven',
         difficulty: 'Iniciante',
-        tempo: 108,
+        tempo: 104,
         description: 'Tema clássico da 9ª Sinfonia. Perfeita para praticar os 5 dedos da mão direita.',
         notes: [
             { note: 'E4', lyric: 'O-', duration: 1 },
@@ -66,7 +66,22 @@ const SONGS_COLLECTION = [
             { note: 'E4', lyric: 'a', duration: 1 },
             { note: 'D4', lyric: 'bri-', duration: 1 },
             { note: 'D4', lyric: 'lhar', duration: 1 },
-            { note: 'C4', lyric: 'sozinha.', duration: 2 }
+            { note: 'C4', lyric: 'sozinha.', duration: 2 },
+
+            { note: 'G4', lyric: 'Bri-', duration: 1 },
+            { note: 'G4', lyric: 'lha,', duration: 1 },
+            { note: 'F4', lyric: 'bri-', duration: 1 },
+            { note: 'F4', lyric: 'lha,', duration: 1 },
+            { note: 'E4', lyric: 'sem', duration: 1 },
+            { note: 'E4', lyric: 'pa-', duration: 1 },
+            { note: 'D4', lyric: 'rar,', duration: 2 },
+            { note: 'G4', lyric: 'lá', duration: 1 },
+            { note: 'G4', lyric: 'no', duration: 1 },
+            { note: 'F4', lyric: 'céu', duration: 1 },
+            { note: 'F4', lyric: 'a', duration: 1 },
+            { note: 'E4', lyric: 'cla-', duration: 1 },
+            { note: 'E4', lyric: 're-', duration: 1 },
+            { note: 'D4', lyric: 'ar.', duration: 2 }
         ]
     },
     {
@@ -112,7 +127,7 @@ const SONGS_COLLECTION = [
         title: 'Asa Branca',
         composer: 'Luiz Gonzaga & Humberto Teixeira',
         difficulty: 'Fácil',
-        tempo: 100,
+        tempo: 104,
         description: 'O clássico hino do forró e baião nordestino brasileiro em tom de Dó.',
         notes: [
             { note: 'C4', lyric: 'Quan-do', duration: 0.5 },
@@ -130,7 +145,114 @@ const SONGS_COLLECTION = [
             { note: 'G4', lyric: 'de', duration: 1 },
             { note: 'G4', lyric: 'São', duration: 1 },
             { note: 'F4', lyric: 'Jo-', duration: 1 },
-            { note: 'E4', lyric: 'ão...', duration: 2 }
+            { note: 'E4', lyric: 'ão...', duration: 2 },
+
+            { note: 'C4', lyric: 'Eu', duration: 0.5 },
+            { note: 'D4', lyric: 'per-', duration: 0.5 },
+            { note: 'E4', lyric: 'gun-', duration: 1 },
+            { note: 'G4', lyric: 'tei', duration: 1 },
+            { note: 'G4', lyric: 'a', duration: 1 },
+            { note: 'F4', lyric: 'Deus', duration: 1 },
+            { note: 'E4', lyric: 'do', duration: 1 },
+            { note: 'D4', lyric: 'céu,', duration: 2 },
+
+            { note: 'C4', lyric: 'por', duration: 0.5 },
+            { note: 'D4', lyric: 'que', duration: 0.5 },
+            { note: 'E4', lyric: 'ta-ma-', duration: 1 },
+            { note: 'F4', lyric: 'nha', duration: 1 },
+            { note: 'D4', lyric: 'ju-di-', duration: 1 },
+            { note: 'C4', lyric: 'ação.', duration: 2 }
+        ]
+    },
+    {
+        id: 'fur_elise',
+        title: 'Für Elise',
+        composer: 'L. v. Beethoven',
+        difficulty: 'Médio',
+        tempo: 120,
+        description: 'O famoso tema da Bagatela em Lá Menor. Ótimo treino de semitons e agilidade.',
+        notes: [
+            { note: 'E5', lyric: '', duration: 0.5 },
+            { note: 'D#5', lyric: '', duration: 0.5 },
+            { note: 'E5', lyric: '', duration: 0.5 },
+            { note: 'D#5', lyric: '', duration: 0.5 },
+            { note: 'E5', lyric: '', duration: 0.5 },
+            { note: 'B4', lyric: '', duration: 0.5 },
+            { note: 'D5', lyric: '', duration: 0.5 },
+            { note: 'C5', lyric: '', duration: 0.5 },
+            { note: 'A4', lyric: '', duration: 1.5 },
+
+            { note: 'C4', lyric: '', duration: 0.5 },
+            { note: 'E4', lyric: '', duration: 0.5 },
+            { note: 'A4', lyric: '', duration: 0.5 },
+            { note: 'B4', lyric: '', duration: 1.5 },
+
+            { note: 'E4', lyric: '', duration: 0.5 },
+            { note: 'G#4', lyric: '', duration: 0.5 },
+            { note: 'B4', lyric: '', duration: 0.5 },
+            { note: 'C5', lyric: '', duration: 1.5 },
+
+            { note: 'E4', lyric: '', duration: 0.5 },
+            { note: 'E5', lyric: '', duration: 0.5 },
+            { note: 'D#5', lyric: '', duration: 0.5 },
+            { note: 'E5', lyric: '', duration: 0.5 },
+            { note: 'D#5', lyric: '', duration: 0.5 },
+            { note: 'E5', lyric: '', duration: 0.5 },
+            { note: 'B4', lyric: '', duration: 0.5 },
+            { note: 'D5', lyric: '', duration: 0.5 },
+            { note: 'C5', lyric: '', duration: 0.5 },
+            { note: 'A4', lyric: '', duration: 2 }
+        ]
+    },
+    {
+        id: 'bella_ciao',
+        title: 'Bella Ciao',
+        composer: 'Canção Popular Italiana',
+        difficulty: 'Médio',
+        tempo: 116,
+        description: 'Tema tradicional enérgico em Lá menor, mundialmente famoso por La Casa de Papel.',
+        notes: [
+            { note: 'E4', lyric: 'U-na', duration: 0.5 },
+            { note: 'A4', lyric: 'mat-', duration: 0.5 },
+            { note: 'B4', lyric: 'ti-', duration: 0.5 },
+            { note: 'C5', lyric: 'na', duration: 0.5 },
+            { note: 'A4', lyric: '...', duration: 1.5 },
+
+            { note: 'E4', lyric: 'mi', duration: 0.5 },
+            { note: 'A4', lyric: 'so-', duration: 0.5 },
+            { note: 'B4', lyric: 'no', duration: 0.5 },
+            { note: 'C5', lyric: 'sve-', duration: 0.5 },
+            { note: 'A4', lyric: 'glia-', duration: 0.5 },
+            { note: 'A4', lyric: 'to,', duration: 1 },
+
+            { note: 'E4', lyric: 'o', duration: 0.5 },
+            { note: 'A4', lyric: 'bel-la', duration: 0.5 },
+            { note: 'B4', lyric: 'ciao,', duration: 0.5 },
+            { note: 'C5', lyric: 'bel-la', duration: 0.5 },
+            { note: 'B4', lyric: 'ciao,', duration: 0.5 },
+            { note: 'A4', lyric: 'bel-la', duration: 0.5 },
+            { note: 'C5', lyric: 'ciao,', duration: 0.5 },
+            { note: 'D5', lyric: 'ciao,', duration: 0.5 },
+            { note: 'E5', lyric: 'ciao!', duration: 1.5 },
+
+            { note: 'E5', lyric: 'u-na', duration: 0.5 },
+            { note: 'D5', lyric: 'mat-', duration: 0.5 },
+            { note: 'E5', lyric: 'ti-', duration: 0.5 },
+            { note: 'F5', lyric: 'na,', duration: 1 },
+            { note: 'F5', lyric: 'mi', duration: 0.5 },
+            { note: 'E5', lyric: 'so-no', duration: 0.5 },
+            { note: 'D5', lyric: 'sve-', duration: 0.5 },
+            { note: 'F5', lyric: 'glia-', duration: 0.5 },
+            { note: 'E5', lyric: 'to,', duration: 1 },
+
+            { note: 'E5', lyric: 'e', duration: 0.5 },
+            { note: 'D5', lyric: 'ho', duration: 0.5 },
+            { note: 'C5', lyric: 'tro-', duration: 0.5 },
+            { note: 'B4', lyric: 'va-', duration: 0.5 },
+            { note: 'A4', lyric: 'to', duration: 1 },
+            { note: 'B4', lyric: 'l\'in-', duration: 0.5 },
+            { note: 'C5', lyric: 'va-', duration: 0.5 },
+            { note: 'B4', lyric: 'sor!', duration: 2 }
         ]
     }
 ];
